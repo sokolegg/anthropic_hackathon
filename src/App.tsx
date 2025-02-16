@@ -202,8 +202,8 @@ function App() {
             <div className="container mx-auto px-6">
               <div className="flex items-center justify-between h-16">
                 <h1 className="text-2xl font-bold text-blue-700 tracking-tight">Reflexia</h1>
-                <div className="flex items-center justify-center flex-1">
-                  <div className="bg-gray-100 rounded-lg p-1 flex items-center">
+                <div className="flex items-center justify-center flex-1 px-8">
+                  <div className="bg-gray-100 rounded-lg p-2 flex items-center space-x-8">
                     {[
                       { to: "/", text: "Timeline", emoji: "⏱️" },
                       { to: "/chat", text: "Chat", emoji: "💬" },
@@ -214,14 +214,14 @@ function App() {
                         key={link.to}
                         to={link.to}
                         className={({ isActive }) =>
-                          `px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 min-w-[120px] text-center mx-1 flex items-center justify-center gap-2 ${
+                          `px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 min-w-[130px] text-center flex items-center justify-center gap-4 ${
                             isActive
                               ? "bg-white text-blue-700 shadow-md"
                               : "text-gray-600 hover:text-blue-700 hover:bg-white/50"
                           }`
                         }
                       >
-                        <span className="text-base">{link.emoji}</span>
+                        <span className="text-lg">{link.emoji}</span>
                         <span>{link.text}</span>
                       </NavLink>
                     ))}
