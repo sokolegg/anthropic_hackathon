@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="713d5311-86b9-4e05-8774-52aba1f53249" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lawyer_agent/RAG.py" beforeDir="false" afterPath="$PROJECT_DIR$/lawyer_agent/RAG.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lawyer_agent/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lawyer_agent/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

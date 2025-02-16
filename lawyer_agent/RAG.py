@@ -66,7 +66,7 @@ query_engine = index.as_query_engine()
 async def rag_request(request: TextRequest):
     print("I'm ready for your try")
     response = query_engine.query(request.text)
-    return {"response": response}
+    return {"response": response.response}
 
 
 @app.post("/insert_into_index")
