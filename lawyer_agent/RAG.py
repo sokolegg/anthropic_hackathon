@@ -2,10 +2,8 @@
 from llama_index.vector_stores.duckdb import DuckDBVectorStore
 from llama_index.core import StorageContext
 from llama_index.core import Document
-import torch
 from llama_index.core import Settings
 from llama_index.llms.anthropic import Anthropic
-from transformers import BertModel
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core import VectorStoreIndex
 
@@ -66,7 +64,7 @@ query_engine = index.as_query_engine()
 async def rag_request(request: TextRequest):
     print("I'm ready for your try")
     response = query_engine.query(request.text)
-    return {"response": response}
+    return {"response": response.response}
 
 
 @app.post("/insert_into_index")
