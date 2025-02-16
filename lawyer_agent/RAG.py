@@ -2,12 +2,11 @@
 from llama_index.vector_stores.duckdb import DuckDBVectorStore
 from llama_index.core import StorageContext
 from llama_index.core import Document
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 import torch
 from llama_index.core import Settings
-from llama_index.core import PromptTemplate
 from llama_index.llms.anthropic import Anthropic
 from transformers import BertModel
+from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core import VectorStoreIndex
 
 from pydantic import BaseModel
@@ -44,7 +43,9 @@ llm = Anthropic(
     max_tokens=2000,
 )
 
-embed_model = BertModel.from_pretrained("bert-base-uncased", torch_dtype=torch.float32)
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+embed_model = HuggingFaceEmbedding("bert-base-uncased")
+# embed_model = BertModel.from_pretrained("bert-base-uncased", torch_dtype=torch.float32)
 
 Settings.llm = llm
 Settings.embed_model = embed_model
@@ -67,8 +68,16 @@ print("5")
 query_engine = index.as_query_engine()
 print("6")
 
+
 @app.get("/rag_request")
 async def rag_request(request: TextRequest):
     print("I'm ready for your try")
     response = query_engine.query(request.text)
     return {"response": response}
+
+
+@app.post("/insert_into_index")
+async def insert_into_index(request: TextRequest):
+    parser = SimpleNodeParser()
+    new_nodes = parser.get_nodes_from_documents([Document(text=request.text)])
+    index.insert_nodes(new_nodes)
