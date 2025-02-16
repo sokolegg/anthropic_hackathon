@@ -35,7 +35,6 @@ CLAUDE_KEY = ""
 class TextRequest(BaseModel):
     text: str
 
-print("0")
 # Инициализация Claude через LlamaIndex
 llm = Anthropic(
     api_key=CLAUDE_KEY,
@@ -49,24 +48,18 @@ embed_model = HuggingFaceEmbedding("bert-base-uncased")
 
 Settings.llm = llm
 Settings.embed_model = embed_model
-print("1")
 documents = [
     Document(text=el)
     for el in ["hello", "i'm here to help you", "wow, wow, it was an amazing journey"]
 ]
-print("2")
 
 vector_store = DuckDBVectorStore()
-print("3")
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
-print("4")
 index = VectorStoreIndex.from_documents(
     documents, storage_context=storage_context
 )
-print("5")
 
 query_engine = index.as_query_engine()
-print("6")
 
 
 @app.get("/rag_request")
