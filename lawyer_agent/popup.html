@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot Capture</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 200px;
+      height: 100px;
+      padding: 10px;
+      text-align: center;
+    }
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Screenshot Capture</h2>
+  <button id="captureButton">Start Capturing</button>
+
+  <script>
+    const captureButton = document.getElementById('captureButton');
+
+    // Слушаем нажатие на кнопку для старта/остановки захвата
+    captureButton.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'startCapture' });
+    });
+
+    // Слушаем сообщения от background.js для обновления текста кнопки
+    chrome.runtime.onMessage.addListener((message) => {
+      if (message.action === 'updateButtonText') {
+        updateButtonText(message.isCapturing);
+      }
+    });
+
+    // Функция для обновления текста кнопки
+    function updateButtonText(isCapturing) {
+      if (isCapturing) {
+        captureButton.textContent = 'Stop Capturing';
+        captureButton.removeEventListener('click', startCaptureHandler);
+        captureButton.addEventListener('click', stopCaptureHandler);
+      } else {
+        captureButton.textContent = 'Start Capturing';
+        captureButton.removeEventListener('click', stopCaptureHandler);
+        captureButton.addEventListener('click', startCaptureHandler);
+      }
+    }
+
+    // Обработчики для старта и остановки захвата
+    function startCaptureHandler() {
+      chrome.runtime.sendMessage({ action: 'startCapture' });
+    }
+
+    function stopCaptureHandler() {
+      chrome.runtime.sendMessage({ action: 'stopCapture' });
+    }
+
+    // Инициализация текста кнопки на основе текущего состояния
+    chrome.runtime.sendMessage({ action: 'checkCaptureStatus' });
+  </script>
+</body>
+</html>

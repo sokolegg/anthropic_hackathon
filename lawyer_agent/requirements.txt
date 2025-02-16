@@ -1,0 +1,13 @@
+fastapi==0.115.8
+fastapi.middleware==0.2.1
+pillow==11.1.0
+duckdb==0.10.3
+llama-index-vector-stores-duckdb==0.3.0
+torch==2.2.2
+torchvision==0.17.2
+torchaudio==2.2.2
+llama-index-llms-huggingface==0.4.2
+llama-index-embeddings-huggingface==0.5.0
+llama-index-llms-anthropic==0.6.5
+llama-index==0.12.17
+numpy==2.2.3
